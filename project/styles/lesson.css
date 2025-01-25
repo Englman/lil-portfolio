@@ -1,0 +1,699 @@
+@font-face {
+    font-family: "someRobo";
+    src: url('../fonts/VT323-Regular.ttf');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #f8f8f8;
+    background-image: url('../img/raptorsBackLight.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+}
+
+body.dark-theme{
+    background-color: black;
+    background-image: url('../img/raptorsBackDark.svg');
+}
+
+#windowRelatedWithFooter{
+    position: fixed;
+    left: 45%;
+    height: 60px;
+    background-color: #5e98f5ad;
+    color: #2b436a;
+    font-size: 20px;
+    padding: 5px 10px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    border-radius: 10px;
+    transform: translateY(-100%);
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1;
+    transition: transform 0.5s cubic-bezier(0.63, 0.01, 0.18, 0.98), visibility 0.5s, opacity 0.5s, color 0.5s, background-color 0.5s;
+}
+
+#windowRelatedWithFooter.dark-themeForWindowRelatedWithFooter{
+    background-color: #1e1918;
+    color: #9d9d9d;
+}
+
+.topline{
+    position: relative;
+    width: 1000px;
+    height: 60px;
+    margin: 0px auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.t-content{
+    height: 60px;
+    display: flex;
+}
+
+.tc-left{
+    width: 85%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-left: 3px;
+}
+
+.tcl-img-content{
+    position: fixed;
+    left: -10px;
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+    cursor: pointer;
+    transform: translateY(0);
+    transition: transform 0.5s, all 0.5s;
+}
+
+.tcl-img-content::before{
+    content: attr(data-clue); /*Reading content from attribute of tcl-img-content*/
+    position: absolute;
+    color: #9d9d9d;
+    background-color: #1e1918;
+    left: -26px;
+    top: 15px;
+    transform: translateX(45%);
+    padding: 5px 10px;
+    width: 75.1px;
+    border-radius: 10px;
+    visibility: hidden;
+    z-index: -1;
+    opacity: 0;
+    transition: inherit;
+}
+
+.tcl-img-content.light-themeForTheLogo::before{
+    color: #dfdfdf;
+    background-color: #69a0f6;
+}
+
+.tcl-img-content:hover{
+    transform: translateY(-5px);
+}
+
+.tcl-img-content:hover::before{
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+    left: calc(25px + 10px);
+}
+
+.tcl-content{
+    font-size: 25px;
+    cursor: pointer;
+    color: #5e99f5;
+    transform: translateY(0);
+    transition: transform 0.5s;
+}
+
+.tcl-content.dark-themeForLeftNav{
+    color: #6f6f6f;
+}
+
+.tcl-content.dark-themeForLeftNav::after{
+    background-color: #6f6f6f;
+}
+
+.tcl-content:hover{
+    transform: translateY(-5px);    
+}
+
+.tcl-content::after{
+    content: '';
+    position: absolute;
+    left: 0px;
+    bottom: -6px;
+    background-color: #5e99f5;
+    width: 100%;
+    height: 11px;
+    opacity: 0.4;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.5s;
+}
+
+.tcl-content:hover::after{
+    transform: scaleY(1);
+}
+
+.tc-right{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tcr-content{
+    font-size: 25px;
+    cursor: pointer;
+    color: #5e99f5;
+    transform: translateY(0);
+    transition: transform 0.5s;
+}
+
+.tcr-content.dark-themeForRightNav{
+    color: #6f6f6f;
+}
+
+.tcr-content.dark-themeForRightNav::after{
+    background-color: #6f6f6f;
+}
+
+.tcr-content:hover{
+    transform: translateY(-5px);
+}
+
+.tcr-content::after{
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0px;
+    width: 100%;
+    height: 11px;
+    opacity: 0.3;
+    background-color: #5e99f5;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.5s;
+}
+
+.tcr-content:hover::after{
+    transform: scaleY(1);
+}
+
+.modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    visibility: hidden; /*То же самое что и display none но не получится тогда красивой анимации*/
+    opacity: 0;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+
+.modal_box{
+    position: relative; /*Блок теперь система координат*/
+    max-width: 800px;
+    padding: 45px;
+    font-size: 20px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 15px;
+    background-color: #fefefe;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px 0px #18184b;
+    transform: scale(0);
+    transition: transform 0.5s;
+}
+
+.mainImgM{
+    width: 25%;
+    border-radius: 15px;
+}
+
+#mb_content{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.mb_contentDiv{
+    background-color: #38369263;
+    width: 100%;
+    height: 460px;
+    border-radius: 15px;
+    display: flex;
+}
+
+.mbc_blocksLeft{
+    width: 50%;
+    height: 100%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: someRobo;
+    font-size: 25px;
+}
+
+.mbc_blocksLeft a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.mbcb_imgS{
+    width: 65%;
+    height: 35%;
+    margin-top: 10px;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+
+.mbcb_imgF{
+    width: 48%;
+    height: 42%;
+    margin-top: 10px;
+    border-radius: 50%;
+}
+
+.mbc_blocksRight{
+    width: 50%;
+    height: 100%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: someRobo;
+    font-size: 25px;
+}
+
+.mbc_blocksRight a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.mbcb_imgD{
+    width: 48%;
+    height: 42%;
+    margin-top: 10px;
+}
+
+.mbcb_imgV{
+    width: 64%;
+    height: 36%;
+    margin-top: 10px;
+    border-radius: 15px;
+}
+
+.modal_close{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border: none;
+    background: transparent;
+    padding: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 0.5s;
+}
+
+.modal_close:hover{
+    transform: scale(1.5);
+}
+
+.modal.open{ /*Тут новое, если появится класс OPEN то тогда происходят действия*/
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal.open .modal_box{ /*Если у modal появится open то давай эти настройки modal_box*/
+    transform: scale(1);
+}
+
+.wrapper{
+    width: 1000px;
+    min-height: 1000px;
+    margin: 0px auto;
+}
+
+#content{
+    width: inherit;
+    min-height: inherit;
+    display: flex;
+    gap: 10px;
+}
+
+.left-block{
+    width: 70%;
+    background-color:#dddddd;
+    box-shadow: -6px 0px 5px 0px #2e76c178;
+    color: #2e76c1;
+    font-size: 22px;
+    word-spacing: 3px;
+    padding-left: 10px;
+    padding-top: 5px;
+    border-radius: 10px;
+}
+
+.left-block.dark-themeForBlocks{
+    background-color: #6f6f6f;
+    box-shadow: -6px 0px 5px 0px #5a5a5a;
+    color: #292929;
+}
+
+.left-block > span{
+    box-shadow: 0px 6px 8px 0px #9d9d9d;   
+}
+
+.right-block{
+    width: 30%;
+    background-color:#dddddd;
+    box-shadow: 6px 0px 5px 0px #2e76c178;
+    border-radius: 10px;
+    transition: 1.5s;
+}
+
+.right-block.dark-themeForBlocks{
+    background-color: #6f6f6f;
+    box-shadow: 6px 0px 5px 0px #5a5a5a;
+    color: #292929;
+}
+
+.contact{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hidden{
+    display: none;
+}
+
+.contact h2{
+    font-size: 40px;
+    color: #2e76c1;
+    text-align: center;
+    margin-bottom: 10px;
+    user-select: none;
+    letter-spacing: 5px;
+    transition: color 0.5s;
+}
+
+.contact h2.dark-themeForMainStringInEmail{
+    color: #252120;
+}
+
+.contact form{
+    width: 600px;
+    text-align: center;
+}
+
+form .input-box{
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-box .input-field{
+    width: 40%;
+}
+
+.field .item{
+    width: 100%;
+    padding: 18px;
+    background: transparent;
+    border: 2px solid #2e76c1;
+    outline: none;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #2e76c1;
+    margin: 12px 0;
+    transition: border 0.5s, color 0.5s;
+}
+
+
+.field .item.dark-themeForFieldItems{
+    border: 2px solid #252120;
+    color: #252120;
+}
+
+.field .item.dark-themeForFieldItems::placeholder{
+    color: #252120;
+}
+
+.field .item::placeholder{
+    color: #2e76c1;
+    transition: color 0.5s;
+}
+
+.field .error-txt{
+    font-size: 14.5px;
+    color: #951212;
+    text-align: left;
+    margin: -5px 0 10px;
+    display: none;
+}
+
+form .textarea-field .item{
+    resize: none;
+}
+
+form .textarea-field .item{
+    font-size: 20px;
+}
+
+form .textarea-field .error-txt{
+    margin-top: -10px;
+
+}
+
+form button{
+    padding: 12px 32px;
+    background: rgb(94 153 245);
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    box-shadow: rgb(94 153 245) 0px 0px 10px;
+    color: rgb(248 248 248);
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transform: scale(1);
+    transition: box-shadow 0.5s ease 0s, transform 0.5s ease 0s, background 0.5s, color 0.5s;
+}
+
+form button.dark-themeForSubmitButton{
+    background: rgb(139 139 139);
+    box-shadow: rgb(37 33 32) 0px 0px 10px;
+    color: rgb(37 33 32);
+}
+
+form button:hover{
+    box-shadow: none;
+    transform: scale(0.96);
+}
+
+.footer{
+    width: 1000px;
+    height: 200px;
+    margin: 40px auto 0px auto;
+    background-color: #e0e0e0;
+    box-shadow: 0px 6px 8px 0px #2e76c178;
+    border-radius: 10px;
+    transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+.footer.dark-themeForFooter{
+    background-color: #6f6f6f;
+    box-shadow: 0px 6px 5px 0px #5a5a5a;
+}
+
+.f-block{
+    width: inherit;
+    height: inherit;
+    display: flex;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.fb-leftContent{
+    width: 50%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 20px 40px;
+}
+
+.fbl-topContent{
+    height: calc(100% / 3);
+    font-size: 35px;
+    letter-spacing: 1px;
+    line-height: 66px;
+    color: #5e99f5;
+    transition: color 0.5s;
+}
+
+.fbl-topContent.dark-themeForFooterTop{
+    color: #292929;
+}
+
+.fbl-middleContent{
+    height: calc(100% / 3.2);
+    line-height: 25px;
+    letter-spacing: 0.5px;
+    color: #5e98f5ca;
+    transition: color 0.5s;
+}
+
+.fbl-middleContent.dark-themeForFooterMiddle{
+    color: #292929;
+}
+
+.fbl-bottomContent{
+    height: calc(100% / 4);
+}
+
+.fblb-content{
+    display: flex;
+}
+
+.fblb-content  input{
+    height: 35px;
+    border: unset;
+    border-radius: 5px;
+    padding: 5px;
+    width: 300px;
+    color: #1771fd;
+    background-color: #d5d5d5;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.fblb-content input.dark-themeForFooterBottom{
+    background-color: #292929;
+    color: #b9b9b9;
+}
+
+.fblb-content input::placeholder{
+    color: #5e98f5ca;
+    font-size: 19px;
+    transform: translateY(2px);
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.5s, opacity 0.5s, transform 0.5s, color 0.5s;
+}
+
+.fblb-content input.dark-themeForFooterBottom::placeholder{
+    color: #b7b7b7;
+}
+
+.fblb-content input:focus{
+    outline: none;
+}
+
+.fblb-content input:focus::placeholder{
+    transform: translateY(-20px);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.fblb-content button{
+    position: relative;
+    display: inline-block;
+    border: none;
+    width: 150px;
+    border-radius: 10px;
+    margin-left: 5px;
+    font-size: 20px;
+    color: #5e99f5;
+    background-color: #fefefe;
+    transform: scale(1);
+    transition: transform 0.5s, background-color 0.5s, color 0.5s;
+}
+
+.fblb-content button:hover{
+    background-color: #d0d0d0;
+    transform: scale(0.95);
+    color: #3b85fc;
+}
+
+.fblb-content button.dark-themeForFooterButton{
+    color: #b7b7b7;
+    background-color: #292929;
+}
+
+.fblb-content button.dark-themeForFooterButton:hover{
+    color: #9f9f9f;
+    background-color: #000000;
+}
+
+.fb-rightContent{
+    outline: 1px solid yellow;
+    width: 50%;
+    height: inherit;
+}
+
+@keyframes fadeIn{
+    0% {
+        transform:rotate3d(0, 0, 0, 0.5rad);
+    }
+    
+    10% {
+        transform:rotate3d(0, 1, 0, 1rad);
+    }
+
+    20% {
+        transform:rotate3d(0, 2, 0, 1.5rad);
+    }
+
+    30% {
+        transform:rotate3d(0, 3, 0, 2rad);
+    }
+
+    40% {
+        transform:rotate3d(0, 4, 0, 2.5rad);
+    }
+
+    50% {
+        transform:rotate3d(0, 5, 0, 3rad);
+    }
+
+    60% {
+        transform:rotate3d(0, 6, 0, 3.15rad);
+    }
+}
+
+@keyframes fadeIn2{
+    from{
+        opacity: 1;
+    }
+
+    to{
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn3{
+    from{
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }
+}
+
+.myTextarea1{
+    animation: fadeIn 1s cubic-bezier(0, -0.02, 1, 0.98);
+}
+
+.myTextarea2{
+    animation: fadeIn2 1s cubic-bezier(0, -0.02, 1, 0.98);
+}
+
+.myTextarea3{
+    animation: fadeIn3 1s cubic-bezier(0, -0.02, 1, 0.98);
+}

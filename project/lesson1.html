@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raptors site</title>
+    <link rel="stylesheet" href="styles/lesson.css">
+    <link rel="shortcut icon" href="img/raptorsLogo2.svg" type="image/x-icon">
+</head>
+<body>
+    <div id="windowRelatedWithFooter"></div>
+    <div class="topline">
+        <div class="t-content">
+            <div class="tc-left">
+                <div class="tcl-img-content activate">
+                    <img src="img/raptorsLogo.svg" id="logoOfMine" alt="Mine logo">
+                </div>
+                <div class="tcl-content activate">
+                    <span>Intro</span>
+                </div>
+                <div class="tcl-content activate">
+                    <span>Updates</span>
+                </div>
+                <div class="tcl-content activate">
+                    <span>Media content</span>
+                </div>
+                <div class="tcl-content activate">
+                    <span>Contact</span>
+                </div>
+                <div class="tcl-content activate">
+                    <span>University</span>
+                </div>
+            </div>
+            <div class="tc-right">
+                <div class="tcr-content activate1">
+                    <span>Portfolio</span>
+                </div>
+            </div>
+            <div class="modal" id="my-modal">
+                <div class="modal_box">
+                    <button class = "modal_close" id="closeButton">✖</button>
+                    <img class="mainImgM" src="img/friends.png" alt="Me">
+                    <br>
+                    <p id="mb_content">
+                        I am glad to see you here! My name is Vladimir, you may know me as Englman Technician.
+                        This year i went to university, and to be honest it's awesome to be there, cause you
+                        are being independent from others, you are doing what you love and respect (sometimes not),
+                        of course at first it was unusual, but then you get use to it quickly and with performance. 
+                        Same as in the school once, i have no friends, except 2 maybe ones. I love creating things 
+                        with Javascript, got good moral compensation and ready to study!
+                    </p>
+                    <div class="mb_contentDiv">
+                        <div class="mbc_blocksLeft">
+                            <p> <a href="https://steamcommunity.com/profiles/76561198878306735/" target="_blank">My Steam</a></span></p>
+                            <img class="mbcb_imgS" src="img/newone.png" alt="my Steam">
+                            <br>
+                            <p> <a href="https://www.facebook.com/profile.php?id=100014285762643&mibextid=ZbWKwL" target="_blank">My Facebook</a></span></p>
+                            <img class="mbcb_imgF" src="img/newone2.jpg" alt="my Facebook">
+                        </div>
+                        <div class="mbc_blocksRight">
+                            <p> <a href="https://vk.com/shaibame" target="_blank">My VK</a></span></p>
+                            <img class="mbcb_imgV" src="img/newone4.png" alt="my VK">
+                            <br>
+                            <p> <a href="https://discord.com/channels/1150089496013045941/1150089496013045944" target="_blank">My Discord channel</a></span></p>
+                            <img class="mbcb_imgD" src="img/newone3.png" alt="my Discord">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div id="content"> <!--Block for inputted content-->
+            <div class="left-block" id="myTextarea">
+            </div>
+            <div class="right-block" id="myTextareaNext"></div>
+        </div>
+    </div>
+    <section class="contact"> <!--Email contact-->
+        <h2 id="emailMainMessage">Contact us</h2>
+        <form action="#" id="form1">
+            <div class="input-box">
+                <div class="input-field field">
+                    <input type="text" placeholder="Full name" id="name" class="item" autocomplete="off">
+                    <div class="error-txt">Full name cannot be blank</div>
+                </div>
+                <div class="input-field field">
+                    <input type="text" placeholder="Email address" id="email" class="item" autocomplete="off">
+                    <div class="error-txt">Email address cannot be blank</div>
+                </div>
+            </div>
+            
+            <div class="input-box">
+                <div class="input-field field">
+                    <input type="text" placeholder="Phone number" id="phone" class="item" autocomplete="off">
+                    <div class="error-txt">Phone number cannot be blank</div>
+                </div>
+                <div class="input-field field">
+                    <input type="text" placeholder="Subject" id="subject" class="item" autocomplete="off">
+                    <div class="error-txt">Subject cannot be blank</div>
+                </div>
+            </div>
+
+            <div class="textarea-field field">
+                <textarea name="" id="message" cols="30" rows="10" placeholder="Start entering the message" class="item" autocomplete="off"></textarea>
+                <div class="error-txt">Message cannot be blank</div>
+            </div>
+
+            <button type="submit" class = "buttonForEmail" id="buttonForEmail">Send the message</button>
+        </form>
+    </section>
+    <!--End of Email contact-->
+    <div class="footer">
+        <div class="f-block">
+            <div class="fb-leftContent">
+                <div class="fbl-topContent">Newsletter</div>
+                <div class="fbl-middleContent">Wanna know what we are up to? So then, subscribe to our youtube channel and stay notificated!</div>
+                <div class="fbl-bottomContent">
+                    <div class="fblb-content">
+                        <form action="#">
+                            <input type="email" name="emailInput" id="emailInput" placeholder="Email address">
+                        </form>
+                        <button id="footerButton" disabled>Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="fb-rightContent">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/lesson.js" type="module"></script>
+</body>
+</html>
