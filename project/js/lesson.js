@@ -278,7 +278,7 @@
                     const propertyLine = document.createElement("div"); // Создаю див для того чтобы между элементами списка было пространство
                     propertyLine.style.marginBottom = '15px'
 
-                    listItem.innerHTML += `<span style = "user-select:none;"><span style = "text-transform:capitalize;">${i}</span> <img src= "../img/updatesElementRaptor.svg" style="width:35px; height:35px;"> ${obj[i]}</span>` // Здесь я вывожу те значения которые нашла i!
+                    listItem.innerHTML += `<span style = "user-select:none;"><span style = "text-transform:capitalize;">${i}</span> <img src= "img/updatesElementRaptor.svg" style="width:35px; height:35px;"> ${obj[i]}</span>` // Здесь я вывожу те значения которые нашла i!
                     listItem.appendChild(propertyLine); // в конец каждого li сую div
 
                     if (list[i] == 0) {
